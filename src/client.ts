@@ -42,7 +42,7 @@ export class ShimoSheetFetcher {
         try {
           const data = JSON.parse(body);
           if (!data.access_token) {
-            reject('Get access token error, e =' + data);
+            reject('Get access token error, body =' + body);
           }
           resolve(data.access_token);
         } catch (e) {
@@ -101,7 +101,7 @@ export class ShimoSheetFetcher {
         try {
           const data = JSON.parse(body);
           if (!data.values) {
-            reject('Get values error, e =' + data);
+            reject('Get values error, body =' + body);
           }
           resolve(data.values);
         } catch (e) {

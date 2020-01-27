@@ -1,0 +1,23 @@
+{
+  "name": "shimo-sheet2json",
+  "version": "1.0.0",
+  "description": "Convert Shimo sheet to json",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publish": {},
+  "author": "frank-zsy",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.5.0",
+    "tslib": "^1.10.0"
+  },
+  "files": [
+    "lib/**/*.js",
+    "lib/index.d.ts"
+  ]
+}

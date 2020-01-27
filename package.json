@@ -1,6 +1,6 @@
 {
   "name": "shimo-sheet2json",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Convert Shimo sheet to json",
   "main": "lib/index.js",
   "scripts": {

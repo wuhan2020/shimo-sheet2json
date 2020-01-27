@@ -1,7 +1,7 @@
 import request from 'request';
 import { Config, FileConfig } from "./config";
 
-export default class ShimoSheetFetcher {
+export class ShimoSheetFetcher {
   private config: Config;
   private baseUrl: string = 'https://api.shimo.im';
   private rowBatch: number = 20;

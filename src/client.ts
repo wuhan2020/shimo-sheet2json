@@ -83,7 +83,7 @@ export class ShimoSheetFetcher {
 
   private getMaxColumn(num: number): string {
     const numToChar = (n: number): string => {
-      n = n % 26;
+      n = Math.floor(n % 26);
       if (n === 0) {
         return '';
       }

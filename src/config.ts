@@ -1,6 +1,8 @@
 export interface Config {
   username: string;
   password: string;
+  clientId: string;
+  clientSecret: string;
 }
 
 export interface FileConfig {

@@ -12,6 +12,8 @@
 const client = new ShimoSheetFetcher({
   username: 'username',
   password: 'password',
+  clientId: 'clientId',
+  clientSecret: 'clientSecret'
 });
 const fileContent = await client.getFileData({
   guid: 'sheetId',

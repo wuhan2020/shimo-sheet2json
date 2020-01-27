@@ -5,17 +5,20 @@ export class ShimoSheetFetcher {
   private config: Config;
   private baseUrl: string = 'https://api.shimo.im';
   private rowBatch: number = 20;
+  private token: string;
 
   constructor(config: Config) {
-    if (!config.username || !config.password) {
-      throw new Error('Username and password needed');
+    if (!config.username || !config.password || !config.clientSecret || !config.clientId) {
+      throw new Error('Username, password, client id, client secret needed');
     }
     this.config = config;
   }
 
   public async getFileData(fileConfig: FileConfig): Promise<any> {
-    const token = await this.getToken();
-    const fileContent = await this.getFileContent(token, fileConfig);
+    if (!this.token) {
+      this.token = await this.getToken();
+    }
+    const fileContent = await this.getFileContent(this.token, fileConfig);
     return fileContent;
   }
 
@@ -25,7 +28,7 @@ export class ShimoSheetFetcher {
         method: 'POST',
         url: `${this.baseUrl}/oauth/token`,
         headers: {
-          authorization: 'Basic NTIxOUQyNjc5NjcxNEZCNTlFNkQ2NEVEREZEQTU1QkE6MDNDNTVFRERFOENENEZFRUFCMzIzQUNGNTBCOEMzQkM=',
+          authorization: `Basic ${Buffer.from(`${this.config.clientId}:${this.config.clientSecret}`).toString('base64')}`,
           'content-type': 'application/x-www-form-urlencoded'
         },
         form: {
@@ -79,7 +82,14 @@ export class ShimoSheetFetcher {
   }
 
   private getMaxColumn(num: number): string {
-    return String.fromCharCode(65 + num - 1);   // 1 -> A, 2 -> B
+    const numToChar = (n: number): string => {
+      n = n % 26;
+      if (n === 0) {
+        return '';
+      }
+      return String.fromCharCode(65 + n - 1);
+    }
+    return numToChar(num / 26) + numToChar(num);   // 1 -> A, 2 -> B support 26*26
   }
 
   private async getFileContentRange(accessToken: string, guid: string, range: string): Promise<any[][]> {
